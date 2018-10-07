@@ -11,9 +11,7 @@ import torch
 import torch.autograd as grad
 import torch.nn.functional as F
 
-from configuration import get_config
-
-config = get_config()
+from hparam import hparam as hp
 
 def get_centroids(embeddings):
     centroids = []
@@ -61,21 +59,21 @@ def normalize_0_1(values, max_value, min_value):
     return normalized
 
 def mfccs_and_spec(wav_file, wav_process = False, calc_mfccs=False, calc_mag_db=False):    
-    sound_file, _ = librosa.core.load(wav_file, sr=config.sr)
-    window_length = int(config.window*config.sr)
-    hop_length = int(config.hop*config.sr)
-    duration = config.tisv_frame * config.hop + config.window
+    sound_file, _ = librosa.core.load(wav_file, sr=hp.data.sr)
+    window_length = int(hp.data.window*hp.data.sr)
+    hop_length = int(hp.data.hop*hp.data.sr)
+    duration = hp.data.tisv_frame * hp.data.hop + hp.data.window
     
     # Cut silence and fix length
     if wav_process == True:
         sound_file, index = librosa.effects.trim(sound_file, frame_length=window_length, hop_length=hop_length)
-        length = int(config.sr * duration)
+        length = int(hp.data.sr * duration)
         sound_file = librosa.util.fix_length(sound_file, length)
         
-    spec = librosa.stft(sound_file, n_fft=config.nfft, hop_length=hop_length, win_length=window_length)
+    spec = librosa.stft(sound_file, n_fft=hp.data.nfft, hop_length=hop_length, win_length=window_length)
     mag_spec = np.abs(spec)
     
-    mel_basis = librosa.filters.mel(config.sr, config.nfft, n_mels=config.n_mels)
+    mel_basis = librosa.filters.mel(hp.data.sr, hp.data.nfft, n_mels=hp.data.nmels)
     mel_spec = np.dot(mel_basis, mag_spec)
     
     mag_db = librosa.amplitude_to_db(mag_spec)

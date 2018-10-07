@@ -9,24 +9,20 @@ Created on Wed Sep  5 20:58:34 2018
 import torch
 import torch.nn as nn
 
-from configuration import get_config
+from hparam import hparam as hp
 from utils import get_centroids, get_cossim, calc_loss
-
-config = get_config()
 
 class SpeechEmbedder(nn.Module):
     
     def __init__(self):
         super(SpeechEmbedder, self).__init__()    
-        self.LSTM_stack = nn.LSTM(config.n_mels, config.hidden, num_layers=config.num_layer, batch_first=True)
+        self.LSTM_stack = nn.LSTM(hp.data.nmels, hp.model.hidden, num_layers=hp.model.num_layer, batch_first=True)
         for name, param in self.LSTM_stack.named_parameters():
           if 'bias' in name:
              nn.init.constant_(param, 0.0)
           elif 'weight' in name:
              nn.init.xavier_normal_(param)
-        self.projection = nn.Linear(config.hidden, config.proj)
-        #Softmax
-        self.softmax = nn.Softmax()
+        self.projection = nn.Linear(hp.model.hidden, hp.model.proj)
         
     def forward(self, x):
         x, _ = self.LSTM_stack(x.float()) #(batch, frames, n_mels)

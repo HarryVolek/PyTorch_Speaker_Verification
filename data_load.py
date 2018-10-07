@@ -13,22 +13,21 @@ from random import shuffle
 import torch
 from torch.utils.data import Dataset
 
-from configuration import get_config
+from hparam import hparam as hp
 from utils import mfccs_and_spec
-
-config = get_config()
 
 class SpeakerDatasetTIMIT(Dataset):
     
-    def __init__(self, utterance_number=config.M):
+    def __init__(self):
 
-        if config.train:
-            self.path = config.train_path_unprocessed
+        if hp.training:
+            self.path = hp.data.train_path_unprocessed
+            self.utterance_number = hp.train.M
         else:
-            self.path = config.test_path_unprocessed
+            self.path = hp.data.test_path_unprocessed
+            self.utterance_number = hp.test.M
         self.speakers = glob.glob(os.path.dirname(self.path))
         shuffle(self.speakers)
-        self.utterance_number = utterance_number
         
     def __len__(self):
         return len(self.speakers)
@@ -48,15 +47,16 @@ class SpeakerDatasetTIMIT(Dataset):
 
 class SpeakerDatasetTIMITPreprocessed(Dataset):
     
-    def __init__(self, utter_num=config.M, shuffle=True, utter_start=0):
+    def __init__(self, shuffle=True, utter_start=0):
         
         # data path
-        if config.train:
-            self.path = config.train_path
+        if hp.training:
+            self.path = hp.data.train_path
+            self.utter_num = hp.train.M
         else:
-            self.path = config.test_path
+            self.path = hp.data.test_path
+            self.utter_num = hp.test.M
         self.file_list = os.listdir(self.path)
-        self.utter_num=utter_num
         self.shuffle=shuffle
         self.utter_start = utter_start
         
