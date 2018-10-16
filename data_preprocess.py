@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 #Modified from https://github.com/JanhHyun/Speaker_Verification
 import glob
 import os
@@ -6,7 +8,7 @@ import numpy as np
 from hparam import hparam as hp
 
 # downloaded dataset path
-audio_path = glob.glob(os.path.dirname('./TIMIT/*/*/*/*.WAV'))                                        
+audio_path = glob.glob(os.path.dirname(hp.unprocessed_data))                                        
 
 def save_spectrogram_tisv():
     """ Full preprocess of text independent utterance. The log-mel-spectrogram is saved as numpy file.

@@ -1,5 +1,6 @@
 training: !!bool "true"
 device: "cuda"
+unprocessed_data: './TIMIT/*/*/*/*.WAV'
 ---
 data:
     train_path: './train_tisv'
