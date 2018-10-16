@@ -35,6 +35,8 @@ def train(model_path):
                     {'params': ge2e_loss.parameters()}
                 ], lr=hp.train.lr)
     
+    os.makedirs(hp.train.checkpoint_dir, exist_ok=True)
+    
     embedder_net.train()
     iteration = 0
     for e in range(hp.train.epochs):
