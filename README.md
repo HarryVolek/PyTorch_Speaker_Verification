@@ -7,10 +7,35 @@ PyTorch implementation of speech embedding net and loss described here: https://
 The TIMIT speech corpus was used to train the model, found here: https://catalog.ldc.upenn.edu/LDC93S1,
 or here, https://github.com/philipperemy/timit
 
-The command line arguments for usage are found in configuration.py. To use the model, run train_speech_embedder.py
-with the training flag and either a regex for the unpreprocessed input wav files or the path to the directory created by
-the data_preprocess.py script. The latter is recommended.
+# Preprocessing
 
-To preprocess the TIMIT wav files, place the files into the folder and run data_preprocess.py.
+Change the following config.yaml key to a regex containing all .WAV files in your downloaded TIMIT dataset.
+```yaml
+unprocessed_data: './TIMIT/*/*/*/*.WAV'
+```
+Run the preprocessing script:
+```
+./data_preprocess.py 
+```
+Two folders will be created, train_tisv and test_tisv, containing .npy files containing numpy ndarrays of speaker utterances with a 90%/10% training/testing split.
 
+# Training
+
+To train the speaker verification model, run:
+```
+./train_speech_embedder.py 
+```
+with the following config.yaml key set to true:
+```yaml
+training: !!bool "true"
+```
+for testing, set the key value to:
+```yaml
+training: !!bool "false"
+```
+The log file and checkpoint save locations are controlled by the following values:
+```yaml
+log_file: './speech_id_checkpoint/Stats'
+checkpoint_dir: './speech_id_checkpoint'
+```
 Only TI-SV is implemented.
