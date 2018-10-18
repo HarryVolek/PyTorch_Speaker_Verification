@@ -39,3 +39,9 @@ log_file: './speech_id_checkpoint/Stats'
 checkpoint_dir: './speech_id_checkpoint'
 ```
 Only TI-SV is implemented.
+
+# Performance
+
+```
+EER across 10 epochs: 0.0518
+```
