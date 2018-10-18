@@ -151,7 +151,7 @@ def test(model_path):
             print("\nEER : %0.2f (thres:%0.2f, FAR:%0.2f, FRR:%0.2f)"%(EER,EER_thresh,EER_FAR,EER_FRR))
         avg_EER += batch_avg_EER/(batch_id+1)
     avg_EER = avg_EER / hp.test.epochs
-    print("\n EER across {0} epochs: {1:.4f}".format(hp.test.test_epochs, avg_EER))
+    print("\n EER across {0} epochs: {1:.4f}".format(hp.test.epochs, avg_EER))
         
 if __name__=="__main__":
     if hp.training:
