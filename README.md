@@ -45,7 +45,3 @@ Only TI-SV is implemented.
 ```
 EER across 10 epochs: 0.0518
 ```
-
-# Disclaimer
-
-The embeddings produced by this project are NOT currently compatible with https://github.com/google/uis-rnn
