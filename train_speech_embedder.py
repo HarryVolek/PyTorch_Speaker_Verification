@@ -108,8 +108,8 @@ def test(model_path):
             assert hp.test.M % 2 == 0
             enrollment_batch, verification_batch = torch.split(mel_db_batch, int(mel_db_batch.size(1)/2), dim=1)
             
-            enrollment_batch = torch.reshape(enrollment_batch, (hp.test.N*hp.test.M/2, enrollment_batch.size(2), enrollment_batch.size(3)))
-            verification_batch = torch.reshape(verification_batch, (hp.test.N*hp.test.M/2, verification_batch.size(2), verification_batch.size(3)))
+            enrollment_batch = torch.reshape(enrollment_batch, (hp.test.N*hp.test.M//2, enrollment_batch.size(2), enrollment_batch.size(3)))
+            verification_batch = torch.reshape(verification_batch, (hp.test.N*hp.test.M//2, verification_batch.size(2), verification_batch.size(3)))
             
             perm = random.sample(range(0,verification_batch.size(0)), verification_batch.size(0))
             unperm = list(perm)
@@ -121,8 +121,8 @@ def test(model_path):
             verification_embeddings = embedder_net(verification_batch)
             verification_embeddings = verification_embeddings[unperm]
             
-            enrollment_embeddings = torch.reshape(enrollment_embeddings, (hp.test.N, hp.test.M/2, enrollment_embeddings.size(1)))
-            verification_embeddings = torch.reshape(verification_embeddings, (hp.test.N, hp.test.M/2, verification_embeddings.size(1)))
+            enrollment_embeddings = torch.reshape(enrollment_embeddings, (hp.test.N, hp.test.M//2, enrollment_embeddings.size(1)))
+            verification_embeddings = torch.reshape(verification_embeddings, (hp.test.N, hp.test.M//2, verification_embeddings.size(1)))
             
             enrollment_centroids = get_centroids(enrollment_embeddings)
             
