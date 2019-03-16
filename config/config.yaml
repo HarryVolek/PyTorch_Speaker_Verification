@@ -24,7 +24,7 @@ model:
 train:
     N : 4 #Number of speakers in batch
     M : 5 #Number of utterances per speaker
-    num_workers: 8 #number of workers for data laoder
+    num_workers: 0 #number of workers for dataloader
     lr: 0.01 
     epochs: 950 #Max training speaker epoch 
     log_interval: 30 #Epochs before printing progress

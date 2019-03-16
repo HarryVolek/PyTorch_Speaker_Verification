@@ -120,6 +120,3 @@ train_sequence = np.concatenate(train_sequence,axis=0)
 train_cluster_id = np.asarray(train_cluster_id)
 np.save('test_sequence',train_sequence)
 np.save('test_cluster_id',train_cluster_id)
-        
-
-

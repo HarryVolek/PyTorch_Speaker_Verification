@@ -83,5 +83,3 @@ class SpeakerDatasetTIMITPreprocessed(Dataset):
 
         utterance = torch.tensor(np.transpose(utterance, axes=(0,2,1)))     # transpose [batch, frames, n_mels]
         return utterance
-
-        
