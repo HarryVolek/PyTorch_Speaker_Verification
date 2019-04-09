@@ -29,7 +29,7 @@ class SpeechEmbedder(nn.Module):
         #only use last frame
         x = x[:,x.size(1)-1]
         x = self.projection(x.float())
-        x = x/torch.norm(x)
+        x = x / torch.norm(x, dim=1).unsqueeze(1)
         return x
 
 class GE2ELoss(nn.Module):
