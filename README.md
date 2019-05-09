@@ -54,7 +54,7 @@ Only TI-SV is implemented.
 # Performance
 
 ```
-EER across 10 epochs: 0.0518
+EER across 10 epochs: 0.0377
 ```
 
 # D vector embedding creation
