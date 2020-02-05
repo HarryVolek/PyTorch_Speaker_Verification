@@ -32,7 +32,9 @@ def save_spectrogram_tisv():
             if utter_name[-4:] == '.WAV':
                 utter_path = os.path.join(folder, utter_name)         # path of each utterance
                 utter, sr = librosa.core.load(utter_path, hp.data.sr)        # load utterance audio
-                intervals = librosa.effects.split(utter, top_db=30)         # voice activity detection
+                intervals = librosa.effects.split(utter, top_db=30)         # voice activity detection 
+                # this works fine for timit but if you get array of shape 0 for any other audio change value of top_db
+                # for vctk dataset use top_db=100
                 for interval in intervals:
                     if (interval[1]-interval[0]) > utter_min_len:           # If partial utterance is sufficient long,
                         utter_part = utter[interval[0]:interval[1]]         # save first and last 180 frames of spectrogram.
